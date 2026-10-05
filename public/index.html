@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>水培养护助手</title>
+<link rel="icon" href="/icon.ico">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="bg"></div>
+    <div class="in">
+      <div>
+        <h1>
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 21c0-6 4-11 10-12-1 8-5 12-10 12z" fill="currentColor"/>
+            <path d="M12 21C12 12 8 7 2 5c1 10 5 16 10 16z" fill="currentColor" opacity=".65"/>
+            <path d="M12 21v-9" stroke="#1f5c2e" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+          水培养护助手
+        </h1>
+        <div class="sub" id="today">—</div>
+      </div>
+      <div class="acts">
+        <button class="pill" id="btnPlants">🌿 植株</button>
+        <button class="pill" id="btnSettings">⚙ 设置</button>
+        <a class="pill" href="/card.pdf" target="_blank">养护卡</a>
+        <a class="pill" href="/api/export.csv">导出 CSV</a>
+        <button class="pill" id="btnCopy">复制摘要</button>
+      </div>
+    </div>
+  </header>
+
+  <div id="banner" class="banner info hidden"></div>
+
+  <div class="card">
+    <h2 style="display:flex;align-items:center;gap:9px;margin-bottom:3px">
+      <svg viewBox="0 0 24 24" width="21" height="21" fill="none" style="color:var(--green-m)">
+        <path d="M4 8h3l1.4-2h7.2L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" fill="currentColor"/>
+        <circle cx="12" cy="13.2" r="3.3" fill="#fff"/>
+      </svg>
+      AI 看图记录
+    </h2>
+    <div class="hint">拍几张照片传上来，AI 会看图给出判断并自动记进日志 —— 不用你写字。</div>
+
+    <div style="margin:12px 0 4px">
+      <span class="muted">检查哪株：</span>
+      <span class="seg" id="segPlant"></span>
+    </div>
+
+    <div class="dropzone" id="drop">
+      <svg class="art" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+        <path d="M62 14c13 3 21 11 22 24-13 2-22-8-22-24z" fill="#7cb342"/>
+        <path d="M62 14c-2 12-9 21-22 25 1-14 10-24 22-25z" fill="#4e9c4a"/>
+        <rect x="33" y="43" width="54" height="11" rx="5.5" fill="#d9b26a"/>
+        <path d="M36 54h48v38a11 11 0 0 1-11 11H47a11 11 0 0 1-11-11V54z" fill="#f2f9f1" stroke="#a8cfa4" stroke-width="2.2"/>
+        <path d="M38 76h44v16a9 9 0 0 1-9 9H47a9 9 0 0 1-9-9V76z" fill="#bfe3f5" opacity=".9"/>
+        <path d="M60 64v30M60 76l-9 9M60 82l10 8" stroke="#b08a52" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M22 30c9 1 15 7 16 16-9 1-15-6-16-16z" fill="#9ede6d" opacity=".85"/>
+      </svg>
+      <div class="txt">
+        <div><b>把照片拖到这里</b> · <b>点击选择文件</b> · 按 <b>Ctrl+V</b> 粘贴</div>
+        <div class="hint">建议拍 2 张：一张整瓶（看水位和泡棉）、一张贴近瓶身（看根和水质）</div>
+      </div>
+      <div class="go"><button id="btnCam" type="button">用摄像头拍</button></div>
+    </div>
+    <input type="file" id="file" accept="image/*" multiple class="hidden">
+    <div class="thumbs" id="thumbs"></div>
+
+    <label class="f" style="margin-top:12px">补充说明（可留空）
+      <textarea id="note" placeholder="例如：今天刚换过水，用的纯净水，没加营养液"></textarea>
+    </label>
+    <div style="margin-top:10px">
+      <button class="primary" id="btnAnalyze">AI 分析并记录</button>
+      <span class="muted" id="aiMsg" style="margin-left:12px"></span>
+    </div>
+    <div id="aiResult"></div>
+    <div class="quick hidden" id="quick">
+      <b>顺手确认一下今天的动作？</b>
+      <div>
+        <button data-q="change">今天换水了</button>
+        <button data-q="water">只补了水</button>
+        <button data-q="fertilize">加了营养液</button>
+        <button data-q="none">什么都没做</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid" id="cards"></div>
+
+  <h3>
+    <svg class="ic" viewBox="0 0 24 24" fill="none"><path d="M12 21c0-6.5 4.5-11.5 11-12.5C22 17 17 21 12 21z" fill="currentColor"/><path d="M12 21C12 12.5 8 7.5 2 5.5 3 15.5 7.5 21 12 21z" fill="currentColor" opacity=".6"/></svg>
+    今日建议（按规则自动生成）
+  </h3>
+  <ul class="advice" id="advice"></ul>
+
+  <h3>
+    <svg class="ic" viewBox="0 0 24 24" fill="none"><path d="M4 5h16v14H4z" stroke="currentColor" stroke-width="1.8"/><path d="M8 9h8M8 13h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    记录
+  </h3>
+  <table>
+    <thead><tr><th>时间</th><th>植株</th><th>类型</th><th>内容</th><th>备注</th><th>照片</th><th></th></tr></thead>
+    <tbody id="hist"></tbody>
+  </table>
+  <div class="muted" id="histInfo" style="margin-top:8px"></div>
+
+  <details style="margin-top:20px">
+    <summary style="cursor:pointer;color:var(--green-d);font-size:15px;font-weight:600">手动记录（换水 / 补水 / 加肥 / 观察）</summary>
+    <div class="card" style="margin-top:12px">
+      <div>
+        <span class="muted">植株：</span><span class="seg" id="segPlant2"></span>
+        <span class="muted">类型：</span><span class="seg" id="segType"></span>
+      </div>
+      <div class="fields" id="fields"></div>
+      <label class="f">备注<textarea id="note2" placeholder="可留空"></textarea></label>
+      <div class="fields">
+        <label class="f">时间<input type="datetime-local" id="at"></label>
+        <label class="f">拍照（可选，最多 3 张）<input type="file" id="photo" accept="image/*" multiple></label>
+      </div>
+      <div id="preview"></div>
+      <div style="margin-top:12px">
+        <button class="primary" id="btnSave">保存记录</button>
+        <span class="muted" id="saveMsg" style="margin-left:12px"></span>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ============ 植株管理 ============ -->
+<div id="plantDrawer" class="hidden">
+  <div class="panel">
+    <h2>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" style="color:var(--green-m)">
+        <path d="M12 21c0-6 4.5-11 11-12-1 8-5.5 12-11 12z" fill="currentColor"/>
+        <path d="M12 21C12 12.5 8 7.5 2 5.5 3 15.5 7.5 21 12 21z" fill="currentColor" opacity=".6"/>
+      </svg>
+      植株管理
+    </h2>
+    <div id="plantList"></div>
+    <hr>
+
+    <h3 style="margin-top:0" id="pFormTitle">新增植株</h3>
+    <label class="f">名称（必填）
+      <input type="text" id="pName" placeholder="例如：水培绿萝 / 水培薄荷">
+    </label>
+    <label class="f">养护提示（会一起交给 AI 参考）
+      <textarea id="pHint" placeholder="例如：耐阴，水位取低；忌阳光直射；叶片有斑纹"></textarea>
+    </label>
+    <div class="fields">
+      <label class="f">开始养护日期
+        <input type="date" id="pAdded">
+      </label>
+      <label class="f">水位偏好
+        <select id="pLevel">
+          <option value="normal">标准（没过根系一半）</option>
+          <option value="low">取低（木质根 / 怕缺氧）</option>
+        </select>
+      </label>
+    </div>
+    <label class="f">换水间隔预设（选完可再手改下面）
+      <select id="pPreset"></select>
+    </label>
+    <div class="muted" style="margin:-4px 0 8px">换水间隔按季节设置，单位：天。想更勤/更懒就直接改数字。</div>
+    <div class="fields" id="pIntervals"></div>
+    <label class="f">头像（可选，方形照片最好看）
+      <input type="file" id="pAvatar" accept="image/*">
+    </label>
+    <div id="pAvatarPreview" style="margin:-4px 0 14px"></div>
+    <div style="display:flex;gap:9px;flex-wrap:wrap">
+      <button class="primary" id="pSave">保存植株</button>
+      <button id="pNew">清空 / 新增</button>
+      <button id="pClose">关闭</button>
+    </div>
+    <div class="muted" id="pMsg" style="margin-top:10px"></div>
+    <div class="muted" style="margin-top:14px">
+      删除一株时可以选择「仅移出列表」（历史记录保留、名称仍能显示）或「连记录一起删」。
+    </div>
+  </div>
+</div>
+
+<!-- ============ 设置 ============ -->
+<div id="drawer" class="hidden">
+  <div class="panel">
+    <h2>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" style="color:var(--green-m)">
+        <circle cx="12" cy="12" r="3.2" fill="currentColor"/>
+        <path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.5 5.5l2.1 2.1M16.4 16.4l2.1 2.1M18.5 5.5l-2.1 2.1M7.6 16.4l-2.1 2.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      设置
+    </h2>
+    <label class="f">API Key（DeepSeek）
+      <input type="password" id="setKey" placeholder="sk-...">
+    </label>
+    <div class="muted" style="margin:-6px 0 13px">只存在你自己电脑的 <code>data/settings.json</code>，不会发到除接口地址以外的任何地方。</div>
+    <label class="f">接口地址（Base URL）
+      <input type="text" id="setBase" placeholder="https://api.deepseek.com">
+    </label>
+    <label class="f">模型名
+      <input type="text" id="setModel" placeholder="deepseek-flash">
+    </label>
+    <label class="f">图片细节
+      <select id="setDetail">
+        <option value="high">high（保留原图，推荐）</option>
+        <option value="low">low（更快更省）</option>
+      </select>
+    </label>
+    <div class="fields">
+      <label class="f">几天没拍照就提醒
+        <input type="number" id="setRemind" min="1" max="30">
+      </label>
+      <label class="f">缓苗期天数（新植株）
+        <input type="number" id="setSeed" min="0" max="120">
+      </label>
+    </div>
+    <label class="f" style="flex-direction:row;align-items:center;gap:8px">
+      <input type="checkbox" id="setLan" style="width:auto"> 允许手机通过局域网访问（改完需重启程序）
+    </label>
+    <div id="lanInfo" class="muted" style="margin-bottom:13px"></div>
+    <div style="display:flex;gap:9px;flex-wrap:wrap">
+      <button class="primary" id="btnSaveSet">保存</button>
+      <button id="btnTest">测试连接</button>
+      <button id="btnCloseSet">关闭</button>
+    </div>
+    <div id="testResult" style="margin-top:14px;font-size:13px"></div>
+    <hr>
+    <div class="muted">
+      <b>申请 Key：</b>打开 <a href="https://platform.deepseek.com/" target="_blank">platform.deepseek.com</a> →
+      API Keys → 新建，充值 10 元就够用很久。<br>
+      一张图最多算 1024 tokens，按 V4-Flash 同价计费，日常用非常便宜。
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="/app.js"></script>
+</body>
+</html>

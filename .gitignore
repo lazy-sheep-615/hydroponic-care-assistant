@@ -1,0 +1,14 @@
+# 用户真实数据，不要提交（含明文 API Key）
+data/
+
+# 工具产物
+tools/_last_request.json
+shots/
+*.log
+
+# 依赖（本项目零依赖，仅防御性忽略）
+node_modules/
+
+# Python 缓存（用于生成图标/装饰图的小脚本）
+__pycache__/
+*.pyc
