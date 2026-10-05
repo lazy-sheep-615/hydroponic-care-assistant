@@ -7,8 +7,8 @@
 需要 Node.js 18 或更新版本，无需安装 npm 依赖。
 
 ```powershell
-git clone <仓库地址>
-cd 水培助手
+git clone https://github.com/lazy-sheep-615/hydroponic-care-assistant.git
+cd hydroponic-care-assistant
 node server.js
 ```
 
