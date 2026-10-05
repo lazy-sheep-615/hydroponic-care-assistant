@@ -196,7 +196,9 @@
 { "type": "image_url", "image_url": { "url": "data:image/jpeg;base64,…", "detail": "high" } }
 ```
 
-- 提示词在 `server.js` 的 `buildMessages()`：system 里是养护铁律 + 每株的当前状态 + 最近历史；user 里是要模型看的照片与输出要求。
+- 提示词在 `server.js` 的 `buildMessages()`，system 分四段：养护铁律 / 【本次要检查的植株】（名称+该株 hint）/
+  【其它在养植株】（名称+hint，让模型能把照片里出现的别的株也认出来）/【系统已算出的当前状态】+【最近的养护历史】；
+  user 段是要模型看的照片与输出要求。`tools/e2e.js` 会断言这四段都在。
 - **结构化输出契约**（模型必须只回这个 JSON，`parseAnalysis()` 会剥掉 ```json 围栏再解析）：
 
 ```jsonc
