@@ -226,3 +226,93 @@ details summary{list-style:none}
 details summary::-webkit-details-marker{display:none}
 details summary::before{content:'▸ ';color:var(--green-m)}
 details[open] summary::before{content:'▾ '}
+
+/* ============ 界面整理：更清晰的阅读层次与移动端布局 ============ */
+:root{
+  --cream:#f6f7f1;--line:#e5e9de;--line-s:#d5ddcf;
+  --ink:#203127;--grey:#64736a;--grey-l:#78877d;
+  --r:20px;--r-s:14px;
+  --sh:0 2px 4px rgba(25,52,34,.025),0 16px 40px -28px rgba(25,52,34,.28);
+  --sh-l:0 18px 48px -25px rgba(9,39,22,.45)
+}
+body{font-size:14px;letter-spacing:.08px;background-image:radial-gradient(circle at 8% 3%,#e7efe4 0,transparent 30%),radial-gradient(circle at 95% 38%,#edf2e8 0,transparent 28%)}
+.wrap{max-width:1160px;padding:26px 22px 88px}
+.hero{min-height:220px;border-radius:25px;margin-bottom:22px}
+.hero .bg{background-position:center 45%}
+.hero .bg::after{background:linear-gradient(100deg,rgba(10,38,23,.95),rgba(11,44,26,.84) 48%,rgba(19,62,38,.4))}
+.hero .in{min-height:220px;padding:28px 34px;align-content:space-between;align-items:flex-end}
+.hero-kicker{font-size:11px;font-weight:700;letter-spacing:2px;color:#bce0aa;margin-bottom:15px}
+.hero h1{font-size:32px;letter-spacing:1px}
+.hero h1 svg{width:36px;height:36px}
+.hero .sub{font-size:13px;margin-top:12px;color:#dfebdc}
+.hero .acts{max-width:570px;justify-content:flex-end}
+.pill{padding:8px 14px;border-color:rgba(255,255,255,.28);background:rgba(255,255,255,.12);font-size:12px}
+.pill:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #a9d47e;outline-offset:3px}
+.banner{border-radius:15px;padding:13px 18px;margin-bottom:22px}
+.card{padding:22px 24px;margin-bottom:18px}
+.capture-card{position:relative;border:1px solid #dfe9dc;box-shadow:0 15px 45px -33px rgba(24,66,35,.43)}
+.capture-card::before{content:'';position:absolute;left:0;top:24px;bottom:24px;width:3px;border-radius:0 3px 3px 0;background:#7baa74}
+.section-eyebrow{display:block;color:#63866a;font-size:11px;font-weight:750;letter-spacing:1.8px;margin-bottom:7px}
+.capture-card h2{font-size:22px;letter-spacing:.3px}
+.capture-card>.hint{font-size:13px;color:var(--grey);margin-top:4px}
+.section-heading{margin:31px 0 14px}
+.section-heading h3{font-size:20px;letter-spacing:.2px;margin:0;padding:0;border:0}
+.section-heading h3 .ic{width:21px;height:21px}
+.section-heading p{margin:2px 0 0;color:var(--grey);font-size:12px}
+.grid{gap:18px}
+.grid>.card{margin-bottom:0;transition:transform .18s,box-shadow .18s}
+.grid>.card:hover{transform:translateY(-2px);box-shadow:var(--sh-l)}
+.avatar{width:66px;height:66px;border-radius:18px}
+.plant-head{gap:15px;margin-bottom:16px}
+.kv{padding:7px 0;border-top:1px solid #eef1ea}
+.badge{margin:13px 0 9px;padding:5px 12px}
+.bar{height:9px;margin:4px 0 13px}
+.dropzone{min-height:150px;border-color:#bdd5b8;border-radius:16px;padding:22px 25px;background:linear-gradient(125deg,#f4faf1,#fbfdf9 60%,#eef6e9)}
+.dropzone .art{flex-basis:95px;height:95px}
+.dropzone .txt b{font-size:14px}
+.dropzone .hint{font-size:12px;line-height:1.7}
+button.primary{border-radius:10px;padding:10px 22px}
+.seg{border-radius:11px;box-shadow:none}
+.seg button{padding:8px 15px}
+ul.advice{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ul.advice li{margin:0;padding:13px 15px;min-height:64px;line-height:1.6}
+.table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:#fff;box-shadow:var(--sh)}
+.table-scroll table{border:0;border-radius:0;box-shadow:none;min-width:760px}
+th,td{padding:12px 13px}
+th{background:#f1f6ef}
+tbody tr:hover td{background:#f8fbf6}
+details{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:14px 18px;box-shadow:var(--sh)}
+details summary{font-size:14px;font-weight:650;color:var(--green-d);cursor:pointer}
+details>.card{margin:14px 0 0;box-shadow:none;background:#fafcf9}
+#drawer .panel,#plantDrawer .panel{background:#fbfcf9}
+#drawer h2,#plantDrawer h2{font-size:21px}
+@media(max-width:900px){.hero .in{align-items:flex-start}.hero .acts{justify-content:flex-start}}
+@media(max-width:700px){
+  .wrap{padding:14px 14px 60px}
+  .hero,.hero .in{min-height:0}
+  .hero{border-radius:20px;margin-bottom:14px}
+  .hero .in{padding:24px 21px 21px}
+  .hero h1{font-size:25px}
+  .hero h1 svg{width:29px;height:29px}
+  .hero-kicker{letter-spacing:1.2px;margin-bottom:11px}
+  .hero .acts{gap:7px;margin-top:17px}
+  .pill{padding:7px 11px}
+  .banner{margin-bottom:14px}
+  .card{padding:19px 17px}
+  .capture-card h2{font-size:19px}
+  .section-heading{margin-top:25px}
+  .section-heading h3{font-size:18px}
+  .grid{grid-template-columns:1fr;gap:12px}
+  ul.advice{grid-template-columns:1fr;gap:8px}
+  .dropzone{min-height:0;padding:19px 16px;gap:10px}
+  .dropzone .art{width:70px;height:70px;flex-basis:70px}
+  .dropzone .go{align-self:stretch}
+  .dropzone .go button{width:100%}
+  .seg{max-width:100%;flex-wrap:wrap;border:0;gap:5px;overflow:visible;background:transparent}
+  .seg button,.seg button:last-child{border:1px solid var(--line-s);border-radius:9px}
+  .seg button.on{border-color:var(--green-m)}
+  .table-scroll{margin:0 -2px}
+  #drawer .panel,#plantDrawer .panel{padding:22px 18px 42px}
+}
+@media(max-width:400px){.hero .acts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%}.pill{text-align:center;padding:7px 5px}.dropzone .txt b{font-size:13px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}

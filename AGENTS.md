@@ -270,3 +270,9 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools\shot.ps1 -Url http://1
 2. 若改了数据格式 / 接口 / 提示词契约，**同步更新本文件**。
 3. 若改了用户可见的行为，更新 `说明.md`。
 4. 不要提交 `data/`、`tools/_last_request.json`、任何截图产物。
+
+## 11. 界面与公开仓库
+
+- 首页在 `public/index.html` 按「日常观察、植株状态、今日养护、养护日记」组织；对应视觉样式集中在 `public/style.css` 末尾的「界面整理」段。
+- 小屏幕下历史表格放在 `.table-scroll` 内横向滚动，不让整个页面溢出。新增表格列时保持这个容器。
+- 图标和装饰图属于公开仓库里的示例素材；运行时照片与 API Key 一律只在 `data/`。发布前检查 `git ls-files` 和 Git 历史，确保没有误收录真实数据。
