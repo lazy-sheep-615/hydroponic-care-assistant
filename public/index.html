@@ -38,6 +38,7 @@
   <div id="banner" class="banner info hidden"></div>
 
   <div class="card capture-card">
+    <div class="capture-content">
     <div class="section-eyebrow">01 / 日常观察</div>
     <h2 style="display:flex;align-items:center;gap:9px;margin-bottom:3px">
       <svg viewBox="0 0 24 24" width="21" height="21" fill="none" style="color:var(--green-m)">
@@ -54,18 +55,10 @@
     </div>
 
     <div class="dropzone" id="drop">
-      <svg class="art" viewBox="0 0 120 120" fill="none" aria-hidden="true">
-        <path d="M62 14c13 3 21 11 22 24-13 2-22-8-22-24z" fill="#7cb342"/>
-        <path d="M62 14c-2 12-9 21-22 25 1-14 10-24 22-25z" fill="#4e9c4a"/>
-        <rect x="33" y="43" width="54" height="11" rx="5.5" fill="#d9b26a"/>
-        <path d="M36 54h48v38a11 11 0 0 1-11 11H47a11 11 0 0 1-11-11V54z" fill="#f2f9f1" stroke="#a8cfa4" stroke-width="2.2"/>
-        <path d="M38 76h44v16a9 9 0 0 1-9 9H47a9 9 0 0 1-9-9V76z" fill="#bfe3f5" opacity=".9"/>
-        <path d="M60 64v30M60 76l-9 9M60 82l10 8" stroke="#b08a52" stroke-width="2.6" stroke-linecap="round"/>
-        <path d="M22 30c9 1 15 7 16 16-9 1-15-6-16-16z" fill="#9ede6d" opacity=".85"/>
-      </svg>
+      <span class="upload-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 16V4m-4 4 4-4 4 4M5 15v4a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       <div class="txt">
-        <div><b>把照片拖到这里</b> · <b>点击选择文件</b> · 按 <b>Ctrl+V</b> 粘贴</div>
-        <div class="hint">建议拍 2 张：一张整瓶（看水位和泡棉）、一张贴近瓶身（看根和水质）</div>
+        <div><b>点击上传植物照片</b></div>
+        <div class="hint">也可拖放图片，或按 Ctrl+V 粘贴<br>建议拍摄整株与根部各一张</div>
       </div>
       <div class="go"><button id="btnCam" type="button">用摄像头拍</button></div>
     </div>
@@ -89,6 +82,11 @@
         <button data-q="none">什么都没做</button>
       </div>
     </div>
+    </div>
+    <aside class="capture-visual" aria-label="水培植物装饰图">
+      <img src="/img/botanical-still-life.png" alt="自然光下的玻璃水培绿植静物" width="1536" height="1024">
+      <div class="visual-caption"><span>光 · 水 · 生长</span><p>照料有迹，生长有时。</p><small>从一张照片开始，记录植物的每一点变化。</small></div>
+    </aside>
   </div>
 
   <div class="section-heading"><span class="section-eyebrow">02 / 植株状态</span><h3>我的植物</h3><p>换水、补水和缓苗情况，一眼就能看清。</p></div>

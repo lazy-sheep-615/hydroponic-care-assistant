@@ -273,6 +273,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools\shot.ps1 -Url http://1
 
 ## 11. 界面与公开仓库
 
+- 最新首页使用 `.capture-content` 操作区 + `.capture-visual` 摄影区，小屏幕纵向排列；最终视觉样式在 CSS 的「摄影主题」段。装饰图片为 `public/img/botanical-still-life.png`，来源和生成提示词见 `public/img/ASSETS.md`。它不是用户的植株记录照片。
+
 - 首页在 `public/index.html` 按「日常观察、植株状态、今日养护、养护日记」组织；对应视觉样式集中在 `public/style.css` 末尾的「界面整理」段。
 - 当前植物卡片由 `renderCards()` 生成 `.plant-card`，上半部是照片和名称，下半部以距上次换水天数为主信息；相关样式在 CSS 末尾「第二版」段。新增字段时注意保留移动端两列详情的可读性。
 - 小屏幕下历史表格放在 `.table-scroll` 内横向滚动，不让整个页面溢出。新增表格列时保持这个容器。

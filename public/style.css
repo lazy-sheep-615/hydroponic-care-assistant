@@ -426,3 +426,54 @@ details{box-shadow:none;border-color:#e6e9df}
   .plant-facts{gap:0 12px}
 }
 @media(max-width:400px){.hero .acts{display:flex}.pill{padding:7px 9px}.plant-facts{grid-template-columns:1fr 1fr}}
+
+/* 摄影主题：紧凑导航、独立操作区与植物静物 */
+body{background:#f4f3ee}
+.hero{min-height:0;border:0;border-radius:0;background:transparent;box-shadow:none;margin-bottom:24px;overflow:visible}
+.hero .bg,.hero::before{display:none}
+.hero .in{min-height:0;padding:10px 0 24px;border-bottom:1px solid #dedfd5;align-items:center}
+.hero h1{font-size:28px;letter-spacing:1px}
+.hero-kicker{font-size:10px;color:#89927f;letter-spacing:2px}
+.hero .sub{color:#7d857a;margin-top:8px}
+.hero .acts{max-width:none}
+.pill{background:transparent;border-color:#d9dfd3;box-shadow:none;border-radius:8px;font-weight:500}
+.capture-card{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,1fr);gap:0;padding:0;overflow:hidden;border:1px solid #e1e4da;border-radius:20px;box-shadow:0 18px 48px -34px #284630}
+.capture-content{min-width:0;padding:32px}
+.capture-content h2{font-size:26px;letter-spacing:.4px}
+.capture-content h2>svg{display:none}
+.capture-content>.hint{margin:7px 0 21px;font-size:12px;line-height:1.8}
+.capture-content .seg{display:flex;flex-wrap:wrap;border:0;background:#f2f4ee;border-radius:9px;padding:4px;gap:3px;margin:8px 0 16px;box-shadow:none}
+.capture-content .seg button{flex:1;border:0!important;border-radius:6px!important;padding:7px 8px;background:transparent;font-size:12px;white-space:nowrap}
+.capture-content .seg button.on{background:#fff;color:#26553d;box-shadow:0 2px 7px #243d2010;font-weight:700}
+.capture-content .dropzone{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;min-height:224px;padding:23px 18px;background:#fafbf8;border:1px dashed #becbbb;border-radius:12px;box-shadow:none;transform:none}
+.capture-content .dropzone:hover{background:#f3f7ef;border-color:#6e9875}
+.upload-mark{display:grid;place-items:center;width:42px;height:42px;border:1px solid #dce5d5;border-radius:50%;color:#416f50;background:white}
+.upload-mark svg{width:23px;height:23px}
+.capture-content .dropzone .txt{flex:0 0 auto}
+.capture-content .dropzone .txt b{font-size:15px;font-weight:600}
+.capture-content .dropzone .hint{font-size:11px;color:#8a9385;line-height:1.8;margin-top:5px}
+.capture-content .dropzone .go{align-self:auto}
+.capture-content .dropzone .go button{font-size:11px;font-weight:500;background:transparent;border:0;padding:0;color:#577663;text-decoration:underline;text-underline-offset:4px;width:auto}
+.capture-content textarea{min-height:58px;background:#fcfcfa;border-color:#e2e7dc;border-radius:8px}
+.capture-content #btnAnalyze{width:100%;padding:12px;border-radius:8px;background:#274e3b;box-shadow:none;font-size:13px;letter-spacing:.7px}
+.capture-visual{position:relative;min-height:560px;background:#e7e4da;overflow:hidden;border-left:1px solid #e5e4da}
+.capture-visual>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% center}
+.capture-visual::after{content:'';position:absolute;inset:55% 0 0;background:linear-gradient(transparent,rgba(24,37,24,.65))}
+.visual-caption{position:absolute;bottom:30px;left:28px;right:22px;color:#fff;z-index:1}
+.visual-caption>span{font-size:10px;letter-spacing:4px;color:#e4e9dc}
+.visual-caption p{font-family:"Songti SC","SimSun",serif;font-size:25px;letter-spacing:2px;margin:9px 0 6px}
+.visual-caption small{font-size:11px;color:#e5e7df}
+.section-eyebrow{color:#8d967d}
+.section-heading h3{font-size:20px}
+.section-heading h3 .ic{display:none}
+.plant-top{background:#eef1e9}
+.plant-card:nth-child(2n) .plant-top{background:#f0f0e7}
+@media(max-width:900px){.hero .in{gap:20px}.hero .acts{margin-top:0}.capture-content{padding:25px}.capture-card{grid-template-columns:minmax(0,1.2fr) minmax(260px,1fr)}}
+@media(max-width:700px){
+ .hero .in{padding:8px 3px 20px;gap:17px}.hero h1{font-size:24px}.hero .acts{gap:6px}.pill{font-size:11px;padding:6px 9px}
+ .capture-card{display:flex;flex-direction:column}.capture-content{padding:24px 21px}.capture-content h2{font-size:23px}
+ .capture-visual{order:-1;min-height:200px;height:200px;border:0;border-bottom:1px solid #e5e4da}
+ .capture-visual>img{object-position:70% 49%}.capture-visual::after{inset:0;background:linear-gradient(90deg,rgba(24,37,24,.52),transparent 90%)}
+ .visual-caption{bottom:23px;left:23px}.visual-caption p{font-size:22px}.visual-caption small{font-size:10px}
+ .capture-content .dropzone{min-height:215px}.capture-content .seg{max-width:100%}
+}
