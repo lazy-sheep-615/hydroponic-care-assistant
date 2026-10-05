@@ -148,24 +148,27 @@ function renderCards() {
   $('cards').innerHTML = plants.map((p) => {
     const s = statusFor(p.id);
     const avatar = p.img ? `<img class="avatar" src="${esc(p.img)}" alt="">` : `<div class="avatar ph">${ICON.leaf}</div>`;
-    return `<div class="card">
-      <div class="plant-head">
+    return `<div class="card plant-card ${s.level}">
+      <div class="plant-top">
         ${avatar}
-        <div style="min-width:0">
-          <h2>${esc(p.name)}</h2>
-          <div class="hint">${esc(p.hint || '（没有填写养护提示）')}</div>
-        </div>
+        <div class="plant-title"><span class="plant-label">我的水培植物</span><h2>${esc(p.name)}</h2></div>
         <button class="mini" onclick="openPlants('${p.id}')" title="编辑这株">编辑</button>
       </div>
-      <div class="kv"><span>上次换水</span><b>${s.last ? esc(s.last.at.slice(5, 16).replace('T', ' ')) : '—'}</b></div>
-      <div class="kv"><span>距今</span><b>${s.days == null ? '—' : s.days + ' 天'}</b></div>
-      <div class="kv"><span>当前建议间隔</span><b>${s.iv[0]}～${s.iv[1]} 天</b></div>
-      <div class="badge ${s.level}">${esc(s.text)}</div>
-      <div class="bar ${s.level}"><i style="width:${s.pct}%"></i></div>
-      <div class="kv"><span>上次补水</span><b>${s.lastWater ? esc(dayOf(s.lastWater.at)) + (s.waterDays != null ? `（${s.waterDays} 天前）` : '') : '—'}</b></div>
-      <div class="kv"><span>本次换水后已补水</span><b>${s.watersSince} 次${s.watersSince >= 2 ? '　⚠ 下次必须整瓶换水' : ''}</b></div>
-      <div class="kv"><span>上次加肥</span><b>${s.lastFert ? esc(dayOf(s.lastFert.at)) + (s.fertDays != null ? `（${s.fertDays} 天前）` : '') : '—'}</b></div>
-      <div class="kv"><span>缓苗期</span><b>${s.seedlingLeft > 0 ? `还剩 ${s.seedlingLeft} 天（只加清水）` : '已结束，可加营养液'}</b></div>
+      <div class="plant-body">
+        <p class="plant-hint">${esc(p.hint || '（没有填写养护提示）')}</p>
+        <div class="plant-main-stat">
+          <div><span class="stat-label">距离上次换水</span><strong>${s.days == null ? '—' : s.days}</strong><span class="stat-unit">天</span></div>
+          <div class="stat-side"><span>建议间隔</span><b>${s.iv[0]}～${s.iv[1]} 天</b><small>上次换水 ${s.last ? esc(s.last.at.slice(5, 16).replace('T', ' ')) : '—'}</small></div>
+        </div>
+        <div class="bar ${s.level}"><i style="width:${s.pct}%"></i></div>
+        <div class="badge ${s.level}">${esc(s.text)}</div>
+        <div class="plant-facts">
+          <div><span>上次补水</span><b>${s.lastWater ? esc(dayOf(s.lastWater.at)) + (s.waterDays != null ? `（${s.waterDays} 天前）` : '') : '—'}</b></div>
+          <div><span>本轮已补水</span><b>${s.watersSince} 次${s.watersSince >= 2 ? ' · 下次整瓶换水' : ''}</b></div>
+          <div><span>上次加肥</span><b>${s.lastFert ? esc(dayOf(s.lastFert.at)) + (s.fertDays != null ? `（${s.fertDays} 天前）` : '') : '—'}</b></div>
+          <div><span>缓苗期</span><b>${s.seedlingLeft > 0 ? `还剩 ${s.seedlingLeft} 天（只加清水）` : '已结束，可加营养液'}</b></div>
+        </div>
+      </div>
     </div>`;
   }).join('');
 }
